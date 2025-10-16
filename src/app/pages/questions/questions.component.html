@@ -1,0 +1,127 @@
+<div class="questions-container">
+  <div class="questions-card">
+    <div class="header">
+      <h1>Cuestionario de Tamizaje Pulmonar</h1>
+      <p class="note">
+        Este cuestionario no aplica exclusión por edad. El resultado no sustituye la evaluación médica.
+      </p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+       Identificación 
+      <section class="section">
+        <h2>Información Personal</h2>
+        <div class="form-grid">
+          <label class="form-field">
+            <span class="label-text">Nombre Completo *</span>
+            <input formControlName="nombre" placeholder="Nombre y apellidos" />
+            <small class="error" *ngIf="f.nombre.touched && f.nombre.invalid">
+              Campo requerido (mínimo 2 caracteres)
+            </small>
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">CURP / Identificación</span>
+            <input formControlName="curp" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Sexo</span>
+            <select formControlName="sexo">
+              <option value="">Seleccione...</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Fecha de Nacimiento</span>
+            <input type="date" formControlName="fechaNacimiento" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Edad (años)</span>
+            <input type="number" formControlName="edad" min="0" max="120" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Teléfono</span>
+            <input formControlName="telefono" placeholder="10 dígitos" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Correo Electrónico</span>
+            <input formControlName="email" placeholder="ejemplo@correo.com" />
+            <small class="error" *ngIf="f.email.touched && f.email.invalid">
+              Formato de correo inválido
+            </small>
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Código Postal</span>
+            <input formControlName="cp" />
+          </label>
+
+          <label class="form-field full-width">
+            <span class="label-text">Médico Tratante (opcional)</span>
+            <input formControlName="medico" />
+          </label>
+        </div>
+      </section>
+
+       Tabaquismo 
+      <section class="section">
+        <h2>Historial de Tabaquismo</h2>
+        
+        <label class="checkbox-field">
+          <input type="checkbox" formControlName="fumaOFumo" />
+          <span class="checkbox-label">El/la paciente fuma o fumó</span>
+        </label>
+
+        <div class="form-grid" *ngIf="form.value.fumaOFumo">
+          <label class="form-field">
+            <span class="label-text">Años fumando</span>
+            <input type="number" formControlName="aniosFumando" min="0" max="80" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Cigarrillos por día (promedio)</span>
+            <input type="number" formControlName="cigsPorDia" min="0" max="100" />
+          </label>
+        </div>
+      </section>
+
+       Biomasa 
+      <section class="section">
+        <h2>Exposición a Humo de Leña</h2>
+        
+        <label class="checkbox-field">
+          <input type="checkbox" formControlName="expBiomasa" />
+          <span class="checkbox-label">Exposición a humo de leña (actual o pasada)</span>
+        </label>
+
+        <div class="form-grid" *ngIf="form.value.expBiomasa">
+          <label class="form-field">
+            <span class="label-text">Años de exposición</span>
+            <input type="number" formControlName="aniosBiomasa" min="0" max="80" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Horas promedio por día</span>
+            <input type="number" formControlName="horasPorDiaBiomasa" min="0" max="24" />
+          </label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Volver
+        </button>
+        <button type="submit" class="btn-primary">
+          Ver Resultados
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

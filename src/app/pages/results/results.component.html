@@ -1,0 +1,136 @@
+<div class="results-container" *ngIf="data && results">
+  <div class="results-card">
+    <div class="header">
+      <div class="icon-success" *ngIf="!results.requiresScreening">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <div class="icon-warning" *ngIf="results.requiresScreening">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      
+      <h1>Resultados del Tamizaje</h1>
+      <p class="patient-name">Paciente: {{ data.nombre }}</p>
+    </div>
+
+     Resumen General 
+    <section class="summary-section" [class.requires-screening]="results.requiresScreening">
+      <h2 *ngIf="results.requiresScreening">Se Recomienda Evaluación Médica</h2>
+      <h2 *ngIf="!results.requiresScreening">No Cumple Criterios de Tamizaje</h2>
+      
+      <p class="summary-text" *ngIf="results.requiresScreening">
+        Con base en sus respuestas, se recomienda acudir con su médico para valorar
+        <strong>tomografía de tórax de baja dosis</strong> y prevención de cáncer de pulmón.
+      </p>
+      
+      <p class="summary-text" *ngIf="!results.requiresScreening">
+        Actualmente no cumple los criterios para tamizaje de cáncer de pulmón.
+        Mantenga controles preventivos regulares y consulte a su médico ante cualquier síntoma.
+      </p>
+    </section>
+
+     Resultados de Tabaquismo 
+    <section class="detail-section" *ngIf="data.fumaOFumo">
+      <h3>Evaluación de Tabaquismo</h3>
+      
+      <div class="metrics">
+        <div class="metric-card">
+          <span class="metric-label">Índice Tabáquico (IT)</span>
+          <span class="metric-value">{{ fmt(results.it) }} paquetes/año</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-label">Años fumando</span>
+          <span class="metric-value">{{ data.aniosFumando }} años</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-label">Cigarrillos por día</span>
+          <span class="metric-value">{{ data.cigsPorDia }}</span>
+        </div>
+      </div>
+
+      <div class="status-badge" [class.positive]="results.tabaquismoCumple" [class.negative]="!results.tabaquismoCumple">
+        {{ results.tabaquismoCumple ? 'Cumple criterio de tamizaje' : 'No cumple criterio' }}
+      </div>
+
+      <ul class="criteria-list" *ngIf="results.tabaquismoCumple">
+        <li *ngIf="results.tabaquismoByIT">✓ Cumple por índice tabáquico ≥ 20 paquetes/año</li>
+        <li *ngIf="results.tabaquismoByYears">✓ Cumple por ≥ 20 años fumando</li>
+      </ul>
+    </section>
+
+     Resultados de Biomasa 
+    <section class="detail-section" *ngIf="data.expBiomasa">
+      <h3>Evaluación de Exposición a Biomasa</h3>
+      
+      <div class="metrics">
+        <div class="metric-card">
+          <span class="metric-label">Índice de Biomasa (IB)</span>
+          <span class="metric-value">{{ fmt(results.ib, 0) }} horas/año</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-label">Años de exposición</span>
+          <span class="metric-value">{{ data.aniosBiomasa }} años</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-label">Horas por día</span>
+          <span class="metric-value">{{ data.horasPorDiaBiomasa }} horas</span>
+        </div>
+      </div>
+
+      <div class="status-badge" [class.positive]="results.biomasaCumple" [class.negative]="!results.biomasaCumple">
+        {{ results.biomasaCumple ? 'Cumple criterio (>100 horas/año)' : 'No cumple criterio' }}
+      </div>
+    </section>
+
+     Información del Paciente 
+    <section class="info-section">
+      <h3>Información del Paciente</h3>
+      <div class="info-grid">
+        <div class="info-item" *ngIf="data.edad">
+          <span class="info-label">Edad:</span>
+          <span class="info-value">{{ data.edad }} años</span>
+        </div>
+        <div class="info-item" *ngIf="data.sexo">
+          <span class="info-label">Sexo:</span>
+          <span class="info-value">{{ data.sexo }}</span>
+        </div>
+        <div class="info-item" *ngIf="data.telefono">
+          <span class="info-label">Teléfono:</span>
+          <span class="info-value">{{ data.telefono }}</span>
+        </div>
+        <div class="info-item" *ngIf="data.email">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ data.email }}</span>
+        </div>
+      </div>
+    </section>
+
+     Disclaimer 
+    <div class="disclaimer">
+      <p>
+        <strong>Importante:</strong> Este resultado es orientativo y no sustituye la evaluación médica profesional.
+        Consulte con su médico para una valoración completa y personalizada.
+      </p>
+    </div>
+
+     Acciones 
+    <div class="actions">
+      <button class="btn-secondary" (click)="print()">
+        Imprimir Resultados
+      </button>
+      <button class="btn-primary" (click)="startOver()">
+        Realizar Nuevo Cuestionario
+      </button>
+    </div>
+  </div>
+</div>

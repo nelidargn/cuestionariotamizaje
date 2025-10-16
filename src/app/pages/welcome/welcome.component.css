@@ -1,0 +1,88 @@
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.welcome-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.icon {
+  color: #667eea;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 1.25rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.info-box {
+  background: #f7fafc;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #667eea;
+}
+
+.info-box p {
+  font-size: 1.125rem;
+  color: #2d3748;
+  margin: 0.5rem 0;
+}
+
+.start-button {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.25rem 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+}
+
+.start-button:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.start-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1.125rem;
+  }
+}
