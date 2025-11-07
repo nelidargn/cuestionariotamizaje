@@ -1,7 +1,6 @@
 export interface ScreeningData {
   // Identificación
   nombre: string
-  curp: string
   sexo: "F" | "M" | "Otro" | ""
   fechaNacimiento: string
   edad: number

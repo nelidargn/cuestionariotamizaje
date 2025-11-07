@@ -37,8 +37,5 @@ export class ResultsComponent implements OnInit {
     this.screeningService.reset()
     this.router.navigate(["/"])
   }
-
-  print() {
-    window.print()
-  }
+  
 }
