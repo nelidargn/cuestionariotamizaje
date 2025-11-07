@@ -33,6 +33,11 @@ export class QuestionsComponent {
       cp: this.fb.control(""),
       medico: this.fb.control(""),
       fumaOFumo: this.fb.control(false),
+      familiarCaPulmon: this.fb.control(false),         // P3
+      tosTresMeses: this.fb.control(false),             // P4
+      tosConSangre: this.fb.control(false),             // P5
+      perdidaPesoInexplicable: this.fb.control(false),  // P6
+      expoRadon: this.fb.control(false),                // P9
       aniosFumando: this.fb.control(0, { validators: [Validators.min(0), Validators.max(80)] }),
       cigsPorDia: this.fb.control(0, { validators: [Validators.min(0), Validators.max(100)] }),
       expBiomasa: this.fb.control(false),

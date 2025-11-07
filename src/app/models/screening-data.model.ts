@@ -18,6 +18,13 @@ export interface ScreeningData {
   expBiomasa: boolean
   aniosBiomasa: number
   horasPorDiaBiomasa: number
+
+  //Factores adicionales
+  familiarCaPulmon: boolean;          // P3
+  tosTresMeses: boolean;              // P4
+  tosConSangre: boolean;              // P5
+  perdidaPesoInexplicable: boolean;   // P6
+  expoRadon: boolean;                 // P9 (gas radón)
 }
 
 export interface ScreeningResults {
