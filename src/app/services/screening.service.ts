@@ -24,7 +24,7 @@ export class ScreeningService {
       id: 'hemoptysis',
       question: '¿Tiene tos con sangre (hemoptisis)?',
       explanation: 'Es un signo de alarma serio; requiere evaluación inmediata.',
-      points: 3,
+      points: 5,
       type: 'yes-no'
     },
     {
@@ -45,7 +45,7 @@ export class ScreeningService {
       id: 'tabaquismo',
       question: '¿Usted ha fumado o fuma?',
       explanation: 'El tabaquismo es el principal factor de riesgo para cáncer de pulmón.',
-      points: 3,
+      points: 2,
       type: 'yes-no'
     },
     {
@@ -118,7 +118,7 @@ export class ScreeningService {
       recommendation = 'Considerar consulta médica para evaluación clínica y radiografía de tórax.';
     } else {
       riskLevel = 'high';
-      recommendation = 'Es prioritario contactar a un médico o neumólogo para estudios diagnósticos (TAC, espirometría, marcadores).';
+      recommendation = 'Es prioritario contactar a un médico para estudios diagnósticos (TAC, espirometría, marcadores).';
     }
 
     return {
