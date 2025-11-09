@@ -1,0 +1,152 @@
+<div class="questionnaire-container">
+  <div class="questionnaire-wrapper">
+    <h1 class="title">Evaluación de Riesgo de Cáncer de Pulmón</h1>
+    <p class="subtitle">Conteste las siguientes preguntas de forma honesta para una evaluación adecuada</p>
+
+    <!-- FORM REACTIVO -->
+    <form [formGroup]="personalForm" (ngSubmit)="submitQuestionnaire()">
+      <section class="section">
+        <h2>Información Personal</h2>
+        <div class="form-grid">
+          <label class="form-field">
+            <span class="label-text">Nombre Completo *</span>
+            <input formControlName="nombre" placeholder="Nombre y apellidos" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Sexo</span>
+            <select formControlName="sexo">
+              <option value="">Seleccione...</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Fecha de Nacimiento</span>
+            <input type="date" formControlName="fechaNacimiento" />
+          </label>
+
+          <label class="form-field">
+            <span class="label-text">Código Postal</span>
+            <input formControlName="cp" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Contenido del cuestionario -->
+      <ng-container *ngIf="!submitted">
+        <div class="form-section">
+          <!-- Preguntas Sí/No -->
+          <div *ngFor="let question of questions" class="question-card">
+            <div class="question-header">
+              <h3 class="question-text">{{ question.question }}</h3>
+              <p class="question-explanation">{{ question.explanation }}</p>
+            </div>
+
+            <div class="answer-options">
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  [name]="question.id"
+                  [value]="true"
+                  [checked]="isAnswerTrue(question.id)"
+                  (change)="onAnswerChange(question.id, true)"
+                />
+                <span>Sí</span>
+              </label>
+
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  [name]="question.id"
+                  [value]="false"
+                  [checked]="isAnswerFalse(question.id)"
+                  (change)="onAnswerChange(question.id, false)"
+                />
+                <span>No</span>
+              </label>
+            </div>
+
+            <!-- Follow-ups dentro de la misma tarjeta para mantener el scope -->
+            <!-- Tabaquismo -->
+            <ng-container *ngIf="question.id === 'tabaquismo' && isAnswerTrue(question.id)">
+              <div class="followup">
+                <div class="followup-row">
+                  <label>Años fumando / fumó:</label>
+                  <input
+                    type="number"
+                    min="0"
+                    [ngModel]="getAnswer(question.id)?.details?.smokingYears"
+                    (ngModelChange)="setSmokingYears(question.id, $event)"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="{{question.id}}-years"
+                    placeholder="e.g., 5"
+                  />
+                </div>
+                <div class="followup-row">
+                  <label>Cigarrillos promedio al día:</label>
+                  <input
+                    type="number"
+                    min="0"
+                    [ngModel]="getAnswer(question.id)?.details?.cigsPerDay"
+                    (ngModelChange)="setCigsPerDay(question.id, $event)"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="{{question.id}}-cigs"
+                    placeholder="e.g., 10"
+                  />
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Biomasa -->
+            <ng-container *ngIf="question.id === 'biomasa' && isAnswerTrue(question.id)">
+              <div class="followup">
+                <div class="followup-row">
+                  <label>Años de exposición:</label>
+                  <input
+                    type="number"
+                    min="0"
+                    [ngModel]="getAnswer(question.id)?.details?.biomassYears"
+                    (ngModelChange)="setBiomassYears(question.id, $event)"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="{{question.id}}-years"
+                    placeholder="e.g., 8"
+                  />
+                </div>
+                <div class="followup-row">
+                  <label>Horas promedio por día:</label>
+                  <input
+                    type="number"
+                    min="0"
+                    [ngModel]="getAnswer(question.id)?.details?.biomassHoursPerDay"
+                    (ngModelChange)="setBiomassHoursPerDay(question.id, $event)"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="{{question.id}}-hours"
+                    placeholder="e.g., 3"
+                  />
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- Botón submit -->
+          <button class="submit-btn" type="submit">
+            Ver Resultados
+          </button>
+        </div>
+      </ng-container>
+      <!-- /Contenido del cuestionario -->
+    </form>
+    <!-- /FORM -->
+
+    <!-- Resultados fuera del form -->
+    <div *ngIf="submitted && riskAssessment">
+      <app-results
+        [riskAssessment]="riskAssessment"
+        (reset)="resetForm()"
+      ></app-results>
+    </div>
+  </div>
+</div>

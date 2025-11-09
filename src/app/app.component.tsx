@@ -1,11 +1,13 @@
-import { Component } from "@angular/core"
-import { RouterOutlet } from "@angular/router"
+import { Component } from '@angular/core';
+import { QuestionnaireComponent } from "./pages/questions/questionnarie.component"
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: "<router-outlet></router-outlet>",
-  styles: [],
+  imports: [QuestionnaireComponent],
+  template: '<<app-questionnaire></app-questionnaire>',
+  styles: []
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'Pulmonary Screening Questionnaire';
+}

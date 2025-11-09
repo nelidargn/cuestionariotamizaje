@@ -1,44 +1,68 @@
-import { Component, type OnInit } from "@angular/core"
-import { CommonModule } from "@angular/common"
-import { Router } from "@angular/router"
-import { ScreeningService } from "../../services/screening.service"
-import type { ScreeningData, ScreeningResults } from "../../models/screening-data.model"
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RiskAssessment, ContactInfo } from '../../models/screening.model';
 
 @Component({
-  selector: "app-results",
+  selector: 'app-results',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./results.component.html",
-  styleUrls: ["./results.component.css"],
+  imports: [CommonModule, FormsModule],
+  templateUrl: './results.component.html',
+  styleUrls: ['./results.component.css']
 })
-export class ResultsComponent implements OnInit {
-  data: ScreeningData | null = null
-  results: ScreeningResults | null = null
+export class ResultsComponent {
+  @Input() riskAssessment!: RiskAssessment;
+  @Output() reset = new EventEmitter<void>();
 
-  constructor(
-    private router: Router,
-    private screeningService: ScreeningService,
-  ) {}
+  showContactForm = false;
+  contactInfo: ContactInfo = { email: '', phone: '' };
+  contactSubmitted = false;
 
-  ngOnInit() {
-    this.data = this.screeningService.getScreeningData()
-    this.results = this.screeningService.getScreeningResults()
-
-    if (!this.data || !this.results) {
-      this.router.navigate(["/"])
+  getRiskColor(): string {
+    switch (this.riskAssessment.riskLevel) {
+      case 'low':
+        return '#4CAF50';
+      case 'moderate':
+        return '#FF9800';
+      case 'high':
+        return '#F44336';
+      default:
+        return '#999';
     }
   }
 
-  fmt(n: number, decimals = 1): string {
-    return Number.isFinite(n) ? n.toFixed(decimals) : "0"
+  getRiskLabel(): string {
+    switch (this.riskAssessment.riskLevel) {
+      case 'low':
+        return 'Riesgo Bajo';
+      case 'moderate':
+        return 'Riesgo Moderado';
+      case 'high':
+        return 'Riesgo Alto';
+      default:
+        return 'Desconocido';
+    }
   }
 
-  startOver() {
-    this.screeningService.reset()
-    this.router.navigate(["/"])
+  ngOnInit(): void {
+    if (this.riskAssessment.requiresContact) {
+      this.showContactForm = true;
+    }
   }
 
-  print() {
-    window.print()
+  submitContactInfo(): void {
+    if (this.contactInfo.email && this.contactInfo.phone) {
+      this.contactSubmitted = true;
+      // Here you would typically send this data to your backend
+      console.log('Contact Info Submitted:', this.contactInfo);
+    }
+  }
+
+  resetForm(): void {
+    this.reset.emit();
+  }
+
+  startOver(): void {
+    this.resetForm();
   }
 }
