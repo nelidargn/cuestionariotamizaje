@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: "http://127.0.0.1:42000/functions/v1/submit-screening",
-  optinUrl: "http://127.0.0.1:42000/functions/v1/contact-optin",
+  apiUrl:  "https://cjqwkfridxxzkwczlnkb.functions.supabase.co/submit-screening",
+  optinUrl:"https://cjqwkfridxxzkwczlnkb.functions.supabase.co/contact-optin",
 };
