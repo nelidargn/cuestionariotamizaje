@@ -24,7 +24,7 @@ export class ScreeningService {
       id: 'hemoptysis',
       question: '¿Tiene tos con sangre (hemoptisis)?',
       explanation: 'Es un signo de alarma serio; requiere evaluación inmediata.',
-      points: 5,
+      points: 6,
       type: 'yes-no'
     },
     {

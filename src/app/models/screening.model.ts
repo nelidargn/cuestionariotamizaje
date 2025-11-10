@@ -9,12 +9,9 @@ export interface ScreeningQuestion {
 export interface ScreeningAnswer {
   questionId: string;
   answer: boolean;
-  // NUEVO: detalles por pregunta (opcional)
   details?: {
-    // tabaquismo
     smokingYears?: number;
     cigsPerDay?: number;
-    // biomasa
     biomassYears?: number;
     biomassHoursPerDay?: number;
   };
@@ -30,5 +27,15 @@ export interface RiskAssessment {
 export interface ContactInfo {
   email: string;
   phone: string;
+}
+
+// Datos personales que SÍ envías (sin “medico”)
+export interface PersonalInfo {
+  nombre?: string | null;
+  sexo?: 'M' | 'F' | 'O' | null;
+  fechaNacimiento?: string | null;   // 'YYYY-MM-DD'
+  cp?: string | null;
+  telefono?: string | null;
+  email?: string | null;
 }
 
