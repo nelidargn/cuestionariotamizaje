@@ -8,6 +8,7 @@ import { environment } from "../../environments/environment"
 export class ApiService {
   // Pega aquí TU URL real de la función:
   private fnUrl = environment.apiUrl;
+  private optinUrl  = environment.optinUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -15,5 +16,8 @@ export class ApiService {
     return this.http.post(this.fnUrl, payload, {
       headers: { "Content-Type": "application/json" },
     })
+  }
+  contactOptIn(payload: any) {
+    return this.http.post(this.optinUrl, payload, { headers: { "Content-Type": "application/json" } });
   }
 }
