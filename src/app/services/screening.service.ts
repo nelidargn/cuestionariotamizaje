@@ -24,13 +24,20 @@ export class ScreeningService {
       id: 'hemoptysis',
       question: '¿Tiene tos con sangre (hemoptisis)?',
       explanation: 'Es un signo de alarma serio; requiere evaluación inmediata.',
-      points: 3,
+      points: 6,
       type: 'yes-no'
     },
     {
       id: 'weight-loss',
       question: '¿Tiene pérdida de peso inexplicable?',
       explanation: 'La pérdida de peso sin causa aparente es un signo sistémico de cáncer avanzado.',
+      points: 2,
+      type: 'yes-no'
+    },
+    {
+      id : 'contaminacion',
+      question: '¿La zona donde vive o trabaja se considera de alta contaminacion?',
+      explanation: 'La exposicion a altas concentraciones de contaminantes por tiempo prolongado incrementa el riesgo de cáncer pulmonar y EPOC.',
       points: 2,
       type: 'yes-no'
     },
@@ -45,7 +52,7 @@ export class ScreeningService {
       id: 'tabaquismo',
       question: '¿Usted ha fumado o fuma?',
       explanation: 'El tabaquismo es el principal factor de riesgo para cáncer de pulmón.',
-      points: 3,
+      points: 2,
       type: 'yes-no'
     },
     {

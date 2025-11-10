@@ -5,7 +5,7 @@ import { QuestionnaireComponent } from "./pages/questions/questionnarie.componen
   selector: 'app-root',
   standalone: true,
   imports: [QuestionnaireComponent],
-  template: '<<app-questionnaire></app-questionnaire>',
+  template: '<app-questionnaire></app-questionnaire>',
   styles: []
 })
 export class AppComponent {
